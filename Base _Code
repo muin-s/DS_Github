@@ -639,7 +639,7 @@ label3:
     system("cls");
     fflush(stdin);
 
-    char name[255], author[255], publisher[255];
+    char name[255], Owner[255];
     double Programid, quantity;
 
     FILE *pF = fopen("Program_Records.txt", "ab+");
@@ -649,11 +649,10 @@ label3:
         printf("Enter Program Name: ");
         gets(name);
 
-        printf("Enter Program Author: ");
-        gets(author);
+        printf("Enter Program Owner: ");
+        gets(Owner);
 
-        printf("Enter Program Publisher: ");
-        gets(publisher);
+       
 
         fflush(stdin);
 
@@ -663,7 +662,7 @@ label3:
         printf("Enter Program Quantity: ");
         scanf("%lf",&quantity);
 
-        fprintf(pF, "%s %s %s %.0lf %.0lf \n", name, author, publisher, Programid, quantity);
+        fprintf(pF, "%s %s %s %.0lf %.0lf \n", name, Owner,  Programid, quantity);
 
         printf("\n>>> Program Record Added Successfully <<< \n");
     }
@@ -704,10 +703,10 @@ int modifyProgram(int rentModifier){
     system("cls");
     fflush(stdin);
 
-    char name[255], author[255], publisher[255];
+    char name[255], Owner[255];
     double Programid, quantity;
 
-    char name1[255], author1[255], publisher1[255];
+    char name1[255], Owner1[255];
     double Programid1, quantity1;
 
     int flag=0;
@@ -728,7 +727,7 @@ int modifyProgram(int rentModifier){
     FILE *pF = fopen("Program_Records.txt", "r");
     FILE *pT = fopen("temporary.txt", "a");
 
-    while(fscanf(pF, "%s %s %s %lf %lf \n", name, author, publisher, &Programid, &quantity) != EOF)
+    while(fscanf(pF, "%s %s %s %lf %lf \n", name, Owner,  &Programid, &quantity) != EOF)
     {
         compare = strcmp(find, name);
 
@@ -744,7 +743,7 @@ int modifyProgram(int rentModifier){
                 gets(name1);
 
                 printf("> Enter Authour: ");
-                gets(author1);
+                gets(Owner1);
 
                 printf("> Enter Publisher: ");
                 gets(publisher1);
@@ -757,19 +756,19 @@ int modifyProgram(int rentModifier){
                 printf("> Enter Quantity: ");
                 scanf("%lf",&quantity1);
 
-                fprintf(pT, "%s %s %s %.0lf %.0lf \n", name1, author1, publisher1, Programid1, quantity1);
+                fprintf(pT, "%s %s %s %.0lf %.0lf \n", name1, Owner1, publisher1, Programid1, quantity1);
                 printf("\n\nProcessing your changes....");
             }
             else
             {
                 quantity = ProgramStock;
-                fprintf(pT, "%s %s %s %.0lf %.0lf \n", name, author, publisher, Programid, quantity);
+                fprintf(pT, "%s %s %s %.0lf %.0lf \n", name, Owner, publisher, Programid, quantity);
             }
             flag = 1;
         }
         else
         {
-            fprintf(pT, "%s %s %s %.0lf %.0lf \n", name, author, publisher, Programid, quantity);
+            fprintf(pT, "%s %s %s %.0lf %.0lf \n", name, Owner, publisher, Programid, quantity);
         }
     }
 
@@ -792,9 +791,9 @@ int modifyProgram(int rentModifier){
     pF = fopen("Program_Records.txt", "a");
     pT = fopen("temporary.txt", "r");
 
-    while(fscanf(pT, "%s %s %s %lf %lf \n", name, author, publisher, &Programid, &quantity) != EOF)
+    while(fscanf(pT, "%s %s %s %lf %lf \n", name, Owner, publisher, &Programid, &quantity) != EOF)
     {
-        fprintf(pF, "%s %s %s %.0lf %.0lf \n", name, author, publisher, Programid, quantity);
+        fprintf(pF, "%s %s %s %.0lf %.0lf \n", name, Owner, publisher, Programid, quantity);
     }
 
     fclose(pF);
@@ -816,7 +815,7 @@ void listProgram(){
     system("cls");
     fflush(stdin);
 
-    char name[255], author[255], publisher[255];
+    char name[255], Owner[255], publisher[255];
     double quantity, Programid;
     int counter=0;
 
@@ -826,11 +825,11 @@ void listProgram(){
     printf(">>> List of Programs Record <<< \n");
     printf("-------------------------------\n\n");
 
-    while(fscanf(pF, "%s %s %s %lf %lf \n", name, author, publisher, &Programid, &quantity) != EOF)
+    while(fscanf(pF, "%s %s %s %lf %lf \n", name, Owner, publisher, &Programid, &quantity) != EOF)
     {
         printf("-------------------------------\n");
         printf("> Program Name: %s \n", name);
-        printf("> Auhtor: %s \n", author);
+        printf("> Auhtor: %s \n", Owner);
         printf("> Publisher: %s\n", publisher);
         printf("> Program ID: %.0lf \n", Programid);
         printf("> Quantity: %.0lf \n", quantity);
@@ -959,7 +958,7 @@ label4:
     system("cls");
     fflush(stdin);
 
-    char name[255], author[255], publisher[255];
+    char name[255], Owner[255], publisher[255];
     double Programid, quantity;
 
     int flag=0;
@@ -967,15 +966,15 @@ label4:
     
     char find[255];
 
-    (ProgramSearcher != 3) ? printf("Serach the Program by Author name or Program name: ") : printf("Serach the Program by Author name or Program name: ");
+    (ProgramSearcher != 3) ? printf("Serach the Program by Owner name or Program name: ") : printf("Serach the Program by Owner name or Program name: ");
     gets(find);
 
     FILE *pF = fopen("Program_Records.txt", "r");
 
-    while(fscanf(pF, "%s %s %s %lf %lf \n", name, author, publisher, &Programid, &quantity) != EOF)
+    while(fscanf(pF, "%s %s %s %lf %lf \n", name, Owner, publisher, &Programid, &quantity) != EOF)
     {
         compare = strcmp(find, name);
-        compare = strcmp(find, author);
+        compare = strcmp(find, Owner);
 
         if(compare == 0)
         {
@@ -987,7 +986,7 @@ label4:
 
                 printf("-------------------------------\n");
                 printf("> Program Name: %s \n", name);
-                printf("> Auhtor: %s \n", author);
+                printf("> Auhtor: %s \n", Owner);
                 printf("> Publisher: %s\n", publisher);
                 printf("> Program ID: %.0lf \n", Programid);
                 printf("> Quantity: %.0lf \n", quantity);
@@ -1027,10 +1026,10 @@ void deleteProgram(){
     system("cls");
     fflush(stdin);
 
-    char name[255], author[255], publisher[255];
+    char name[255], Owner[255], publisher[255];
     double Programid, quantity;
 
-    char name1[255], author1[255], publisher1[255];
+    char name1[255], Owner1[255], publisher1[255];
     double Programid1, quantity1;
 
     int flag=0;
@@ -1045,7 +1044,7 @@ void deleteProgram(){
     FILE *pF = fopen("Program_Records.txt", "r");
     FILE *pT = fopen("temporary.txt", "a");
 
-    while(fscanf(pF, "%s %s %s %lf %lf \n", name, author, publisher, &Programid, &quantity) != EOF)
+    while(fscanf(pF, "%s %s %s %lf %lf \n", name, Owner, publisher, &Programid, &quantity) != EOF)
     {
         compare = strcmp(find, name);
 
@@ -1060,7 +1059,7 @@ void deleteProgram(){
         }
         else
         {
-            fprintf(pT, "%s %s %s %.0lf %.0lf \n", name, author, publisher, Programid, quantity);
+            fprintf(pT, "%s %s %s %.0lf %.0lf \n", name, Owner, publisher, Programid, quantity);
         }
     }
 
@@ -1083,9 +1082,9 @@ void deleteProgram(){
     pF = fopen("Program_Records.txt", "a");
     pT = fopen("temporary.txt", "r");
 
-    while(fscanf(pT, "%s %s %s %lf %lf \n", name, author, publisher, &Programid, &quantity) != EOF)
+    while(fscanf(pT, "%s %s %s %lf %lf \n", name, Owner, publisher, &Programid, &quantity) != EOF)
     {
-        fprintf(pF, "%s %s %s %.0lf %.0lf \n", name, author, publisher, Programid, quantity);
+        fprintf(pF, "%s %s %s %.0lf %.0lf \n", name, Owner, publisher, Programid, quantity);
     }
 
     fclose(pF);
